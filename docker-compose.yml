@@ -1,0 +1,34 @@
+version: '3'
+
+networks:
+  bytebase_demo:
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:22.7.2.15
+    ports:
+      - "9000:9000"
+    environment:
+      - CLICKHOUSE_CONFIG=/etc/clickhouse-server/config.xml
+      - CLICKHOUSE_HOST=host.docker.internal
+    volumes:
+      - ~/tutorial_clickhouse_database:/var/lib/clickhouse
+    container_name: tutorial-clickhouse-server
+    networks:
+      - bytebase_demo
+
+  bytebase:
+    image: bytebase/bytebase:1.16.0
+    restart: always
+    ports:
+      - "5678:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5678/healthz", "||", "exit", "1"]
+      interval: 5m
+      timeout: 60s
+    volumes:
+      - ~/.bytebase/data:/var/opt/bytebase
+    command: ["--data", "/var/opt/bytebase", "--port", "8080"]
+    container_name: bytebase
+    networks:
+      - bytebase_demo
