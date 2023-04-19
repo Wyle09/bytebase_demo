@@ -10,7 +10,6 @@ services:
       - "9000:9000"
     environment:
       - CLICKHOUSE_CONFIG=/etc/clickhouse-server/config.xml
-      - CLICKHOUSE_HOST=host.docker.internal
     volumes:
       - ~/tutorial_clickhouse_database:/var/lib/clickhouse
     container_name: tutorial-clickhouse-server
@@ -28,7 +27,7 @@ services:
       timeout: 60s
     volumes:
       - ~/.bytebase/data:/var/opt/bytebase
-    command: ["--data", "/var/opt/bytebase", "--port", "8080"]
+    command: ["--data", "/var/opt/bytebase", "--port", "8080", "--external-url", "https://1b8e-2600-1700-7d1-3630-9daf-e0e2-b27-1cab"]
     container_name: bytebase
     networks:
       - bytebase_demo
