@@ -27,7 +27,7 @@ services:
       timeout: 60s
     volumes:
       - ~/.bytebase/data:/var/opt/bytebase
-    command: ["--data", "/var/opt/bytebase", "--port", "8080", "--external-url", "https://1b8e-2600-1700-7d1-3630-9daf-e0e2-b27-1cab"]
+    command: ["--data", "/var/opt/bytebase", "--port", "8080", "--external-url", "https://1b8e-2600-1700-7d1-3630-9daf-e0e2-b27-1cab.ngrok-free.app"]
     container_name: bytebase
     networks:
       - bytebase_demo
